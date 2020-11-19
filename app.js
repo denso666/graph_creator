@@ -7,7 +7,7 @@ let node_1 = [];
 let node_2 = [];
 
 function setup() {
-    createCanvas(displayWidth-18,displayHeight-180);
+    createCanvas(displayWidth-30,displayHeight-250);
 }
 
 function draw() {
@@ -48,7 +48,7 @@ function mouseClicked() {
 }
 
 function create_link() {
-  if (mouseButton == CENTER) {
+  if (mouseButton == LEFT) {
 
     if (!node_1.length) {
       for (var i = 0; i < nodes.length; i++) {

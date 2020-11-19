@@ -31,7 +31,7 @@ class Link {
   }
 
   display() {
-    stroke('red');
+    stroke('rgb(131, 0, 0)');
     strokeWeight(4);
     line(this.x_origin, this.y_origin, this.x_destiny, this.y_destiny);
 
