@@ -1,81 +1,116 @@
+//global graph
 let nodes = [];
 let links = [];
-let cnv;
+
 let ids = 1;
 
 let node_1 = [];
 let node_2 = [];
 
+//show
+let id_node_selected = -1;
+
 function setup() {
-    createCanvas(displayWidth-30,displayHeight-250);
+	createCanvas(displayWidth - 30, displayHeight - 250);
 }
 
 function draw() {
-    background(0);
-  
-    //draw links
-    for (let i = 0;i<links.length;i++) {
-        links[i].display();
-    }
+	background(0);
 
-    //draw nodes
-    for(let i = 0;i<nodes.length;i++) {
-        nodes[i].display();
-    }
+	//text to node selected
+	noStroke();
+	textSize(25);
+	fill(255);
+	text("Node_selected: "+id_node_selected,10,30);
 
-    create_link();
+
+	//draw links
+	for (let i = 0; i < links.length; i++) {
+		links[i].display();
+	}
+
+	//draw nodes
+	for (let i = 0; i < nodes.length; i++) {
+		nodes[i].display();
+	}
+
+  	create_link();
 }
 
 function mouseClicked() {
-    if (nodes.length) {
-        let valid = true;
+	if (nodes.length) {
+		let valid = true;
 
-        //valid distance to create new node
-        for (let i = 0;i < nodes.length;i++) {
-            let d = dist(nodes[i].x, nodes[i].y, mouseX, mouseY);
-            if ( d < 100 )
-                valid = false;
-        }
-        if (valid) {
-            nodes.push(new Node(mouseX, mouseY, ids));
-            ids++;
-        }
-    }
-    else {
-        nodes.push(new Node(mouseX, mouseY, ids));
-        ids++
-    }
+		//valid distance to create new node
+		for (let i = 0; i < nodes.length; i++) {
+			let d = dist(nodes[i].x, nodes[i].y, mouseX, mouseY);
+			if (d < 100) valid = false;
+		}
+
+		if (valid) {
+			nodes.push(new Node(mouseX, mouseY, ids));
+			ids++;
+		}
+	} else {
+		nodes.push(new Node(mouseX, mouseY, ids));
+		ids++;
+	}
+  	mouseButton = undefined;
 }
 
 function create_link() {
-  if (mouseButton == LEFT) {
+	if (mouseButton === CENTER) {
+		let found = false;
 
-    if (!node_1.length) {
-      for (var i = 0; i < nodes.length; i++) {
-        let d = dist(nodes[i].x,nodes[i].y, mouseX, mouseY);
-        if (d < 50) {
-          node_1.push(nodes[i].x);
-          node_1.push(nodes[i].y);
-        }
-      }
-    }
-    else {
-      for (var i = 0; i < nodes.length; i++) {
-        let d = dist(nodes[i].x,nodes[i].y, mouseX, mouseY);
-        if (d < 50) {
-          node_2.push(nodes[i].x);
-          node_2.push(nodes[i].y);
-        }
-      }
-    }
+		//search node
+		for (var i = 0; i < nodes.length; i++) {
+			let d = dist(nodes[i].x, nodes[i].y, mouseX, mouseY);
+			if (d < 50) {
+				if (!node_1.length) {
+					node_1.push(nodes[i].x);
+					node_1.push(nodes[i].y);
+					id_node_selected = nodes[i].id;	
+				} else {
+					node_2.push(nodes[i].x);
+					node_2.push(nodes[i].y);
+				}
+				found = true;
+				break;
+			}
+		}
+		
+		//select blank space
+		if (!found) {
+			node_1 = [];
+			node_2 = [];
+			id_node_selected = -1;
+		}
 
-    if (node_1.length && node_2.length) {
-      links.push(new Link(node_1[0],node_1[1],node_2[0],node_2[1]));
+		if (node_1.length && node_2.length) {
+			let existing = false;
 
-      node_1 = [];
-      node_2 = [];
-    }
+			//existing link add weight
+			for (let i = 0;i<links.length;i++) {
+				if (links[i].x_o == node_1[0] && links[i].y_o == node_1[1] &&
+					links[i].x_d == node_2[0] && links[i].y_d == node_2[1] ||
+					links[i].x_o == node_2[0] && links[i].y_o == node_2[1] &&
+					links[i].x_d == node_1[0] && links[i].y_d == node_1[1]) {
+					links[i].weight++;
+					existing = true;
+					break;
+				}
+			}
 
-    mouseButton = undefined;
-  }
+			//not existing link
+			if (!existing) {
+				links.push(new Link(node_1[0],node_1[1],node_2[0],node_2[1]));
+			}
+
+			node_1 = [];
+			node_2 = [];
+			id_node_selected = -1;
+		}
+
+		mouseButton = undefined;
+	}
 }
