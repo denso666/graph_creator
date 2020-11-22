@@ -6,14 +6,21 @@
     <title>ALGORITHMS</title>
     <!-- P5 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js "></script>
+    <!-- CUSTOM STYLES -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body style="background-color: rgb(49, 49, 49)">
+    <button class="reset" onClick="window.location.reload();">Clear</button>
+    <button class="info" onClick="info();">Info</button><br>
 
-    <button class="reset" onClick="window.location.reload();">Clear</button><br>
-
-    <script src="./p5.min.js"></script>
     <script src="./Graph.js"></script>
     <script src="./app.js"></script>
+
+    <script>
+        //  HELPERS
+        function info() {
+            alert ("Press double click to create a node\nClick on a node to select and create a link\nCreate multiplex links to increment the weight");
+        }
+    </script>
 </body>
 </html>

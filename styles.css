@@ -16,3 +16,22 @@
 .reset:hover {
       background-color: rgb(131, 0, 0);
 }
+
+.info {
+    display: inline-block;
+    padding: 8px 15px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: rgb(49, 49, 49);
+    border: none;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+  
+.info:hover {
+      background-color: rgb(24, 48, 124);
+}

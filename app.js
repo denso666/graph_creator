@@ -11,7 +11,8 @@ let node_2 = [];
 let id_node_selected = -1;
 
 function setup() {
-	createCanvas(displayWidth - 30, displayHeight - 250);
+	createCanvas(displayWidth - 15, displayHeight - 250);
+	//createCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
@@ -34,11 +35,11 @@ function draw() {
 		nodes[i].display();
 	}
 
-	create_link();
+	//create_link();
 	//console.log(mouseX, mouseY);
 }
 
-function mouseClicked() {
+function doubleClicked() {
 	if (mouseX < 263 && mouseY < 64) return;
 	
 	if (nodes.length) {
@@ -61,14 +62,14 @@ function mouseClicked() {
   	mouseButton = undefined;
 }
 
-function create_link() {
-	if (mouseButton === CENTER) {
+function mouseClicked() {
+	if (mouseButton === LEFT) {
 		let found = false;
 
 		//search node
 		for (var i = 0; i < nodes.length; i++) {
 			let d = dist(nodes[i].x, nodes[i].y, mouseX, mouseY);
-			if (d < 50) {
+			if (d < 25) {
 				if (!node_1.length) {
 					node_1.push(nodes[i].x);
 					node_1.push(nodes[i].y);
