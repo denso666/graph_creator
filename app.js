@@ -34,10 +34,13 @@ function draw() {
 		nodes[i].display();
 	}
 
-  	create_link();
+	create_link();
+	//console.log(mouseX, mouseY);
 }
 
 function mouseClicked() {
+	if (mouseX < 263 && mouseY < 64) return;
+	
 	if (nodes.length) {
 		let valid = true;
 
