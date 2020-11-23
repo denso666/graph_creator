@@ -2,7 +2,7 @@
 let nodes = [];
 let links = [];
 
-let ids = 1;
+let ids = 0;
 
 let node_1 = [];
 let node_2 = [];
@@ -11,7 +11,7 @@ let node_2 = [];
 let id_node_selected = -1;
 
 function setup() {
-	createCanvas(displayWidth - 15, displayHeight - 250);
+	createCanvas(windowWidth - 20, windowHeight - 69);
 	//createCanvas(windowWidth, windowHeight);
 }
 
@@ -23,7 +23,6 @@ function draw() {
 	textSize(25);
 	fill(255);
 	text("Node_selected: "+id_node_selected,10,30);
-
 
 	//draw links
 	for (let i = 0; i < links.length; i++) {
@@ -37,6 +36,10 @@ function draw() {
 
 	//create_link();
 	//console.log(mouseX, mouseY);
+}
+
+function windowResized() {
+	resizeCanvas(windowWidth - 20, windowHeight - 69);
 }
 
 function doubleClicked() {
