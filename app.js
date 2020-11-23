@@ -34,7 +34,6 @@ function draw() {
 		nodes[i].display();
 	}
 
-	//create_link();
 	//console.log(mouseX, mouseY);
 }
 
@@ -43,6 +42,7 @@ function windowResized() {
 }
 
 function doubleClicked() {
+	//limit the cursor position
 	if (mouseX < 263 && mouseY < 64) return;
 	
 	if (nodes.length) {
